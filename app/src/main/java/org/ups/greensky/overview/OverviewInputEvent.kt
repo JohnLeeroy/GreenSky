@@ -1,4 +1,4 @@
-package org.ups.greensky
+package org.ups.greensky.overview
 
 import org.ups.greensky.common.BaseInputEvent
 

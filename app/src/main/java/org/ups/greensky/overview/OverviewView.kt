@@ -1,4 +1,4 @@
-package org.ups.greensky
+package org.ups.greensky.overview
 
 import io.reactivex.Observable
 import org.ups.greensky.mvp.BaseView

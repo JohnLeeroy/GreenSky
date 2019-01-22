@@ -13,19 +13,15 @@ import timber.log.Timber
 abstract class BaseAdapter<MODEL, INPUT_EVENT : BaseInputEvent, VIEWHOLDER : BaseViewHolder<MODEL, INPUT_EVENT>> :
     RecyclerView.Adapter<VIEWHOLDER>() {
 
-    protected lateinit var data: List<WrappedItem<MODEL>>
+    protected var data = mutableListOf<WrappedItem<MODEL>>()
     protected val inputEventSubject = PublishSubject.create<INPUT_EVENT>()
     protected val compositeDisposable = CompositeDisposable()
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VIEWHOLDER {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
     override fun getItemCount(): Int {
         return data.count()
     }
 
-    abstract fun addOrUpdateItems(items: List<MODEL>)
+    abstract fun addOrUpdateItems(items: List<WrappedItem<MODEL>>)
 
     override fun onBindViewHolder(holder: VIEWHOLDER, position: Int) {
         holder.bind(data[position].unwrap())
@@ -43,9 +39,7 @@ abstract class BaseAdapter<MODEL, INPUT_EVENT : BaseInputEvent, VIEWHOLDER : Bas
         compositeDisposable.add(inputEventObservable
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(object : DisposableObserver<INPUT_EVENT>() {
-                override fun onComplete() {
-
-                }
+                override fun onComplete() { }
 
                 override fun onNext(inputEvent: INPUT_EVENT) {
                     inputEventSubject.onNext(inputEvent)
