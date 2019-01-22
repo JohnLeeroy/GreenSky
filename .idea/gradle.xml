@@ -8,7 +8,11 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/api_abstraction" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/core_model" />
+            <option value="$PROJECT_DIR$/darkskyapi" />
+            <option value="$PROJECT_DIR$/domain" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   android:orientation="vertical"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="128dp"
+                                                   android:background="@color/primaryColor">
+
+    <TextView
+            android:id="@+id/tempLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="68°"
+            android:textColor="@color/White"
+            android:textSize="48sp"
+            android:layout_marginStart="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/weatherLabel"
+            app:layout_constraintVertical_chainStyle="packed"/>
+
+
+    <TextView
+            android:id="@+id/weatherLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Clear"
+            android:textColor="@color/White"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="@id/tempLabel"
+            app:layout_constraintTop_toBottomOf="@id/tempLabel"
+            app:layout_constraintBottom_toBottomOf="parent"
+    />
+
+    <ImageView android:id="@+id/weatherIcon"
+               android:layout_width="54dp"
+               android:layout_height="54dp"
+               android:src="@drawable/ic_sun"
+               android:tint="@color/White"
+               app:layout_constraintTop_toTopOf="@id/tempLabel"
+               app:layout_constraintStart_toEndOf="@id/tempLabel"
+               app:layout_constraintBottom_toBottomOf="@id/tempLabel"
+    />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
