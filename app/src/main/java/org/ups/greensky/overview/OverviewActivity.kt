@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.jakewharton.rxbinding3.swiperefreshlayout.refreshes
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_main.*
-import org.kodein.di.android.closestKodein
 import org.ups.greensky.GreenSkyApplication
 import org.ups.greensky.R
 import org.ups.greensky.mvp.BaseMVPActivity

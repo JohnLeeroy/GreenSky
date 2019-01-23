@@ -1,7 +1,5 @@
 package org.ups.greensky.common
 
-import android.view.InputEvent
-import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers

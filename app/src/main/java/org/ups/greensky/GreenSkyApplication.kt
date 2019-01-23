@@ -20,7 +20,7 @@ class GreenSkyApplication : Application(), KodeinAware {
     private fun getApiConfig(): ApiConfig {
         return object : ApiConfig {
             override val apiKey: String
-                get() = "3b05e4a2b981ff0670e5f6dd4603a4d7"
+                get() = BuildConfig.API_KEY
         }
     }
 
