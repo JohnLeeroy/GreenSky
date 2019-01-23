@@ -22,7 +22,7 @@ public class Currently {
     private Double precipIntensity;
     @SerializedName("precipIntensityError")
     @Expose
-    private Long precipIntensityError;
+    private Double precipIntensityError;
     @SerializedName("precipProbability")
     @Expose
     private Double precipProbability;
@@ -61,7 +61,7 @@ public class Currently {
     private Long uvIndex;
     @SerializedName("visibility")
     @Expose
-    private Long visibility;
+    private Double visibility;
     @SerializedName("ozone")
     @Expose
     private Double ozone;
@@ -106,11 +106,11 @@ public class Currently {
         this.precipIntensity = precipIntensity;
     }
 
-    public Long getPrecipIntensityError() {
+    public Double getPrecipIntensityError() {
         return precipIntensityError;
     }
 
-    public void setPrecipIntensityError(Long precipIntensityError) {
+    public void setPrecipIntensityError(Double precipIntensityError) {
         this.precipIntensityError = precipIntensityError;
     }
 
@@ -210,11 +210,11 @@ public class Currently {
         this.uvIndex = uvIndex;
     }
 
-    public Long getVisibility() {
+    public Double getVisibility() {
         return visibility;
     }
 
-    public void setVisibility(Long visibility) {
+    public void setVisibility(Double visibility) {
         this.visibility = visibility;
     }
 

@@ -11,7 +11,7 @@ import timber.log.Timber
 abstract class BaseAdapter<MODEL, INPUT_EVENT : BaseInputEvent, VIEWHOLDER : BaseViewHolder<MODEL, INPUT_EVENT>> :
     RecyclerView.Adapter<VIEWHOLDER>() {
 
-    protected var data = mutableListOf<WrappedItem<MODEL>>()
+    protected var data = mutableListOf<MODEL>()
     protected val inputEventSubject = PublishSubject.create<INPUT_EVENT>()
     protected val compositeDisposable = CompositeDisposable()
 
@@ -19,10 +19,10 @@ abstract class BaseAdapter<MODEL, INPUT_EVENT : BaseInputEvent, VIEWHOLDER : Bas
         return data.count()
     }
 
-    abstract fun addOrUpdateItems(items: List<WrappedItem<MODEL>>)
+    abstract fun addOrUpdateItems(items: List<MODEL>)
 
     override fun onBindViewHolder(holder: VIEWHOLDER, position: Int) {
-        holder.bind(data[position].unwrap())
+        holder.bind(data[position])
     }
 
     public fun dispose() {

@@ -29,7 +29,7 @@ internal fun UpcomingWeatherResult.mapToDailyWeatherSnapshotList(coordinate: Coo
     return result
 }
 
-private fun Currently.mapToPrecipitation() : Precipitation {
+private fun Currently.getPrecipitation() : Precipitation {
     // NOTE-JLI, precipType can be null if precipIntensity and precipProbability is 0
     val precipType =
         if (precipType != null)
@@ -48,7 +48,7 @@ private fun Currently.mapToBasicWeatherData() : BasicWeatherData {
     return BasicWeatherData(
         temperature.toFloat(),
         humidity.toFloat(),
-        mapToPrecipitation()
+        getPrecipitation()
     )
 }
 
@@ -56,10 +56,27 @@ private fun DailyItem.mapToDailyWeatherSnapshot(coordinate: Coordinate): DailyWe
     return DailyWeatherSnapshot(
         getTemperatureRange(),
         getApparentTemperatureRange(),
+        getPrecipitation(),
         time,
         coordinate,
         summary,
         emptySet()
+    )
+}
+
+
+private fun DailyItem.getPrecipitation() : Precipitation {
+    // NOTE-JLI, precipType can be null if precipIntensity and precipProbability is 0
+    val precipType =
+        if (precipType != null)
+            precipType.toPrecipitationType()
+        else
+            PrecipitationType.RAIN
+
+    return Precipitation(
+        precipType,
+        precipIntensity.toFloat(),
+        precipProbability.toFloat()
     )
 }
 

@@ -13,12 +13,13 @@ class OverviewItemViewHolder(view: View) : BaseViewHolder<OverviewItem, Overview
         super.bind(model)
         when (model) {
             is DailyWeatherItem -> {
-                itemView.tempHighLabel.text = model.highTemperature.toString()
-                itemView.tempLowLabel.text = model.lowTemperature.toString()
+                itemView.tempHighLabel.text = model.highTemperature
+                itemView.tempLowLabel.text = model.lowTemperature
                 itemView.dayOfWeekLabel.text = model.dayOfWeek
+                itemView.precipChanceLabel.text = model.precipChance
             }
             is CurrentWeatherItem -> {
-                itemView.tempLabel.text = model.temperature.toString()
+                itemView.tempLabel.text = model.temperature
                 itemView.weatherLabel.text = model.summary
             }
         }

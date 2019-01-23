@@ -1,6 +1,7 @@
 package org.ups.greensky.overview
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jakewharton.rxbinding3.swiperefreshlayout.refreshes
 import io.reactivex.Observable
@@ -11,10 +12,12 @@ import org.ups.greensky.mvp.BaseMVPActivity
 import org.ups.greensky.mvp.PresenterProvider
 import org.ups.greensky.overview.recycler.OverviewAdapter
 import org.ups.greensky.overview.recycler.OverviewInputEvent
+import org.ups.greensky.overview.recycler.OverviewItem
 
 
 class OverviewActivity : BaseMVPActivity<OverviewView, OverviewPresenter>(),
     OverviewView {
+
     private val adapter = OverviewAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,5 +46,14 @@ class OverviewActivity : BaseMVPActivity<OverviewView, OverviewPresenter>(),
         super.onDestroy()
         adapter.dispose()
     }
+
+    override fun addOrUpdateOverviewAdapter(overviewItem: List<OverviewItem>) {
+        adapter.addOrUpdateItems(overviewItem)
+    }
+
+    override fun showError(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
 }
 
