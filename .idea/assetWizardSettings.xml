@@ -29,8 +29,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_sun" />
-                            <entry key="sourceFile" value="C:\Users\John\Downloads\climacons-master\SVG\Sun.svg" />
+                            <entry key="outputName" value="ic_cloud_snow_alt" />
+                            <entry key="sourceFile" value="C:\Users\John\Downloads\climacons-master\SVG\Cloud-Snow-Alt.svg" />
                           </map>
                         </option>
                       </PersistentState>
