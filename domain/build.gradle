@@ -4,8 +4,6 @@ apply plugin: 'kotlin-android'
 android {
     compileSdkVersion 28
 
-
-
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 28
@@ -27,8 +25,12 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(':core_model')
-    implementation "io.reactivex.rxjava2:rxjava:2.2.5"
+    api project(':core_model')
+    api project(':api_abstraction')
+    api "io.reactivex.rxjava2:rxjava:2.2.5"
+    api 'org.kodein.di:kodein-di-generic-jvm:5.3.0'
+    api 'org.kodein.di:kodein-di-framework-android-x:5.3.0'
+
     implementation 'androidx.appcompat:appcompat:1.0.0-alpha1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha3'

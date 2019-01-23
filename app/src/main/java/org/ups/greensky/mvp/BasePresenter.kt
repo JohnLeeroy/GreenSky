@@ -13,6 +13,7 @@ abstract class BasePresenter<VIEW : BaseView> : AndroidPresenterContract {
     fun attach(view: VIEW) {
         compositeDisposable = CompositeDisposable()
         this.view = view
+        onAttach()
     }
 
     @CallSuper
@@ -20,6 +21,7 @@ abstract class BasePresenter<VIEW : BaseView> : AndroidPresenterContract {
         compositeDisposable!!.dispose()
         compositeDisposable = null
         view = null
+        onDetach()
     }
 
     override fun load(bundle: Bundle) {

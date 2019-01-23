@@ -1,31 +1,22 @@
 package org.ups.greensky.api.darksky
 
 import io.reactivex.Observable
-import org.ups.greensky.core.model.weather.component.BasicWeatherData
-import retrofit2.http.GET
-import retrofit2.http.Path
+import org.ups.greensky.api.WeatherApiContract
+import org.ups.greensky.core.model.Coordinate
+import org.ups.greensky.core.model.weather.snapshot.CurrentWeatherSnapshot
+import org.ups.greensky.core.model.weather.snapshot.DailyWeatherSnapshot
 
+class DarkSkyApi(private val darkSkyService: DarkSkyService) : WeatherApiContract {
 
-interface DarkSkyApi {
+    override fun getCurrentWeather(coordinate: Coordinate, unixTime: Long): Observable<CurrentWeatherSnapshot> {
+        return darkSkyService.getCurrentWeather(coordinate.latitude, coordinate.longitude, unixTime)
+            .map { it.mapToCurrentWeatherSnapshot() }
+    }
 
-    @GET("/{latitude},{longitude},{unixTime}?exclude=minutely,hourly,daily,alerts,flags")
-    fun getCurrentWeather(
-        @Path("latitude") latitude: Double,
-        @Path("longitude") longitude: Double,
-        @Path("unixTime") unixTime: Long
-    ): Observable<List<BasicWeatherData>>
-
-    @GET("/{latitude},{longitude}?exclude=currently,minutely,hourly,alerts,flags")
-    fun getCurrentWeeklyForecast(
-        @Path("latitude") latitude: Double,
-        @Path("longitude") longitude: Double
-    ): Observable<List<BasicWeatherData>>
-
-    @GET("/{latitude},{longitude},{unixTime}?exclude=currently,minutely,hourly,alerts,flags")
-    fun getWeatherForecast(
-        @Path("latitude") latitude: Double,
-        @Path("longitude") longitude: Double,
-        @Path("unixTime") unixTime: Long
-    ): Observable<List<BasicWeatherData>>
+    override fun getCurrentWeeklyForecast(
+        coordinate: Coordinate): Observable<List<DailyWeatherSnapshot>> {
+        return darkSkyService.getUpcomingWeeklyForecast(coordinate.latitude, coordinate.longitude)
+            .map { it.mapToDailyWeatherSnapshotList(coordinate) }
+    }
 
 }

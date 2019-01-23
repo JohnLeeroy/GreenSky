@@ -1,4 +1,4 @@
-package org.ups.greensky.overview
+package org.ups.greensky.overview.recycler
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

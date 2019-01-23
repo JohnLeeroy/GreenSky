@@ -1,4 +1,4 @@
-package org.ups.greensky.overview
+package org.ups.greensky.overview.recycler
 
 import android.view.View
 import com.jakewharton.rxbinding3.view.clicks

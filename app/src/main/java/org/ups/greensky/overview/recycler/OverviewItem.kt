@@ -1,4 +1,4 @@
-package org.ups.greensky.overview
+package org.ups.greensky.overview.recycler
 
 sealed class OverviewItem(val time: Long)
 
