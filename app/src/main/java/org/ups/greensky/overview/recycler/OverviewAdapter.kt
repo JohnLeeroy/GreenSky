@@ -25,14 +25,14 @@ class OverviewAdapter : BaseAdapter<OverviewItem, OverviewInputEvent, OverviewIt
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when(position) {
-            0 -> WEATHER_HEADER
-            else -> DAILY_WEATHER
+        return when(data[position]) {
+            is CurrentWeatherItem -> WEATHER_HEADER
+            is DailyWeatherItem -> DAILY_WEATHER
         }
-        return super.getItemViewType(position)
     }
 
     override fun addOrUpdateItems(items: List<OverviewItem>) {
+        data.clear()
         data.addAll(items)
         notifyDataSetChanged()
     }

@@ -1,6 +1,5 @@
 package org.ups.greensky.overview.recycler
 
-import org.ups.greensky.core.model.weather.component.precipitation.Precipitation
 import org.ups.greensky.core.model.weather.component.precipitation.PrecipitationType
 
 sealed class OverviewItem(val time: Long)
@@ -8,7 +7,7 @@ sealed class OverviewItem(val time: Long)
 class CurrentWeatherItem(
     val summary: String,
     val temperature: String,
-    val precipitation: Precipitation,
+    val precipType: PrecipitationType,
     time: Long
 ) : OverviewItem(time)
 

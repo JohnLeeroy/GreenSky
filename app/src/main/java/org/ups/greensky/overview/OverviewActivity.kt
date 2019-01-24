@@ -36,7 +36,7 @@ class OverviewActivity : BaseMVPActivity<OverviewView, OverviewPresenter>(),
     }
 
     override fun onItemClicked(): Observable<OverviewInputEvent> {
-        return Observable.empty()
+        return adapter.getInputObservable()
     }
 
     override val presenterProvider: PresenterProvider<OverviewView, OverviewPresenter>
@@ -55,5 +55,8 @@ class OverviewActivity : BaseMVPActivity<OverviewView, OverviewPresenter>(),
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
+    override fun hideRefreshIndicator() {
+        swipeToRefreshLayout.isRefreshing = false
+    }
 }
 

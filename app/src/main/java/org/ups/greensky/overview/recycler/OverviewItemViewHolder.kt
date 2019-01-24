@@ -1,7 +1,6 @@
 package org.ups.greensky.overview.recycler
 
 import android.view.View
-import androidx.annotation.DrawableRes
 import com.jakewharton.rxbinding3.view.clicks
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.layout_current_weather_item.view.*
@@ -25,6 +24,7 @@ class OverviewItemViewHolder(view: View) : BaseViewHolder<OverviewItem, Overview
             is CurrentWeatherItem -> {
                 itemView.tempLabel.text = model.temperature
                 itemView.weatherLabel.text = model.summary
+                itemView.weatherIcon.setImageResource(getIcon(model.precipType))
             }
         }
     }
@@ -34,6 +34,7 @@ class OverviewItemViewHolder(view: View) : BaseViewHolder<OverviewItem, Overview
             PrecipitationType.RAIN -> PrecipitationIcon.RAIN.drawableRes
             PrecipitationType.SNOW -> PrecipitationIcon.SNOW.drawableRes
             PrecipitationType.SLEET -> PrecipitationIcon.SLEET.drawableRes
+            PrecipitationType.NONE -> PrecipitationIcon.NONE.drawableRes
         }
     }
 

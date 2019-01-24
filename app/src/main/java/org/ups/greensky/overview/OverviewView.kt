@@ -16,4 +16,6 @@ interface OverviewView : BaseView {
     fun addOrUpdateOverviewAdapter(overviewItems: List<OverviewItem>)
 
     fun showError(message: String)
+
+    fun hideRefreshIndicator()
 }
