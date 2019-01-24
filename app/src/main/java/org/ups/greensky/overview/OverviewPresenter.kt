@@ -8,6 +8,7 @@ import org.ups.greensky.core.model.Coordinate
 import org.ups.greensky.interactor.GetCurrentWeather
 import org.ups.greensky.interactor.GetCurrentWeeklyForecast
 import org.ups.greensky.mvp.BasePresenter
+import org.ups.greensky.overview.recycler.ExpandWeatherForecastEvent
 import org.ups.greensky.overview.recycler.OverviewItem
 import timber.log.Timber
 
@@ -19,36 +20,42 @@ class OverviewPresenter(
     override fun onAttach() {
         refreshData()
         observeRefresh()
-        view?.let {
-            it.onItemClicked()
-                .subscribe({
-
-                }, Timber::e)
-        }
+        observeInput()
     }
 
-    override fun onDetach() {
+    override fun onDetach() {}
 
+    private fun observeInput() {
+        view?.let {
+            compositeDisposable?.add(
+                it.onItemClicked()
+                    .ofType(ExpandWeatherForecastEvent::class.java)
+                    .subscribe({
+                        view?.openExpandedForecastView(Coordinate(47.608013, -122.335167), it.time)
+                    }, Timber::e)
+            )
+        }
     }
 
     private fun refreshData() {
         val coordinate = Coordinate(47.608013, -122.335167)
-        compositeDisposable?.add(Observable.zip(
-            getCurrentWeather(coordinate),
-            getCurrentWeatherWeeklyForecast(coordinate),
-            BiFunction<OverviewItem, List<OverviewItem>, List<OverviewItem>> { one, two ->
-                mergeWeatherResults(one, two)
-            })
-            .subscribeOn(Schedulers.newThread())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                view?.addOrUpdateOverviewAdapter(it)
-                view?.hideRefreshIndicator()
-            }, this::handleError)
+        compositeDisposable?.add(
+            Observable.zip(
+                getCurrentWeather(coordinate),
+                getCurrentWeatherWeeklyForecast(coordinate),
+                BiFunction<OverviewItem, List<OverviewItem>, List<OverviewItem>> { one, two ->
+                    mergeWeatherResults(one, two)
+                })
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    view?.addOrUpdateOverviewAdapter(it)
+                    view?.hideRefreshIndicator()
+                }, this::handleError)
         )
     }
 
-    fun mergeWeatherResults(
+    private fun mergeWeatherResults(
         currentWeatherItem: OverviewItem,
         weeklyForecastItems: List<OverviewItem>
     ): List<OverviewItem> {
@@ -67,8 +74,7 @@ class OverviewPresenter(
         return getCurrentWeather.execute(
             coordinate,
             System.currentTimeMillis() / 1000
-        )
-            .map { it.mapToWeatherItem() }
+        ).map { it.mapToWeatherItem() }
     }
 
     private fun getCurrentWeatherWeeklyForecast(coordinate: Coordinate): Observable<List<OverviewItem>> {
@@ -84,9 +90,9 @@ class OverviewPresenter(
 
     private fun observeRefresh() {
         view?.let {
-            it.onRefresh()
+            compositeDisposable?.add(it.onRefresh()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ refreshData() }, Timber::e)
+                .subscribe({ refreshData() }, this::handleError))
         }
     }
 

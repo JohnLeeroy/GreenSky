@@ -21,6 +21,11 @@ internal fun CurrentWeatherResult.mapToCurrentWeatherSnapshot(): CurrentWeatherS
     )
 }
 
+internal fun UpcomingWeatherResult.mapToDailyWeatherSnapshot(coordinate: Coordinate): DailyWeatherSnapshot {
+    val dailyItem = daily.data.first()
+    return dailyItem.mapToDailyWeatherSnapshot(coordinate)
+}
+
 internal fun UpcomingWeatherResult.mapToDailyWeatherSnapshotList(coordinate: Coordinate): List<DailyWeatherSnapshot> {
     val result = mutableListOf<DailyWeatherSnapshot>()
     daily.data.forEach {
@@ -29,7 +34,7 @@ internal fun UpcomingWeatherResult.mapToDailyWeatherSnapshotList(coordinate: Coo
     return result
 }
 
-private fun Currently.getPrecipitation() : Precipitation {
+private fun Currently.getPrecipitation(): Precipitation {
     // NOTE-JLI, precipType can be null if precipIntensity and precipProbability is 0
     val precipType =
         if (precipType != null)
@@ -44,7 +49,7 @@ private fun Currently.getPrecipitation() : Precipitation {
     )
 }
 
-private fun Currently.mapToBasicWeatherData() : BasicWeatherData {
+private fun Currently.mapToBasicWeatherData(): BasicWeatherData {
     return BasicWeatherData(
         temperature.toFloat(),
         humidity.toFloat(),
@@ -65,7 +70,7 @@ private fun DailyItem.mapToDailyWeatherSnapshot(coordinate: Coordinate): DailyWe
 }
 
 
-private fun DailyItem.getPrecipitation() : Precipitation {
+private fun DailyItem.getPrecipitation(): Precipitation {
     // NOTE-JLI, precipType can be null if precipIntensity and precipProbability is 0
     val precipType =
         if (precipType != null)

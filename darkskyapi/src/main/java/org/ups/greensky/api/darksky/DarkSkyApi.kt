@@ -13,6 +13,11 @@ class DarkSkyApi(private val darkSkyService: DarkSkyService) : WeatherApiContrac
             .map { it.mapToCurrentWeatherSnapshot() }
     }
 
+    override fun getWeatherForecast(coordinate: Coordinate, unixTime: Long): Observable<DailyWeatherSnapshot> {
+        return darkSkyService.getDailyForecast(coordinate.latitude, coordinate.longitude, unixTime)
+            .map { it.mapToDailyWeatherSnapshot(coordinate) }
+    }
+
     override fun getCurrentWeeklyForecast(
         coordinate: Coordinate): Observable<List<DailyWeatherSnapshot>> {
         return darkSkyService.getUpcomingWeeklyForecast(coordinate.latitude, coordinate.longitude)

@@ -10,6 +10,8 @@ interface WeatherApiContract {
 
     fun getCurrentWeather(coordinate: Coordinate, unixTime: Long): Observable<CurrentWeatherSnapshot>
 
+    fun getWeatherForecast(coordinate: Coordinate, unixTime: Long): Observable<DailyWeatherSnapshot>
+
     fun getCurrentWeeklyForecast(coordinate: Coordinate): Observable<List<DailyWeatherSnapshot>>
 
 }

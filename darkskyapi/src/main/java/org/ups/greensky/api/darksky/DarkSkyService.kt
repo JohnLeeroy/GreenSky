@@ -15,6 +15,13 @@ interface DarkSkyService {
         @Path("unixTime") unixTime: Long
     ): Observable<CurrentWeatherResult>
 
+    @GET("{latitude},{longitude},{unixTime}?exclude=currently,minutely,hourly,alerts,flags")
+    fun getDailyForecast(
+        @Path("latitude") latitude: Double,
+        @Path("longitude") longitude: Double,
+        @Path("unixTime") unixTime: Long
+    ): Observable<UpcomingWeatherResult>
+
     @GET("{latitude},{longitude}?exclude=currently,minutely,hourly,alerts,flags")
     fun getUpcomingWeeklyForecast(
         @Path("latitude") latitude: Double,

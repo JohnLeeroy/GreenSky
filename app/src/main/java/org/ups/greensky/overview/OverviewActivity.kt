@@ -8,6 +8,8 @@ import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_main.*
 import org.ups.greensky.GreenSkyApplication
 import org.ups.greensky.R
+import org.ups.greensky.core.model.Coordinate
+import org.ups.greensky.expandedforecast.ExpandedForecastActivity
 import org.ups.greensky.mvp.BaseMVPActivity
 import org.ups.greensky.mvp.PresenterProvider
 import org.ups.greensky.overview.recycler.OverviewAdapter
@@ -15,8 +17,7 @@ import org.ups.greensky.overview.recycler.OverviewInputEvent
 import org.ups.greensky.overview.recycler.OverviewItem
 
 
-class OverviewActivity : BaseMVPActivity<OverviewView, OverviewPresenter>(),
-    OverviewView {
+class OverviewActivity : BaseMVPActivity<OverviewView, OverviewPresenter>(), OverviewView {
 
     private val adapter = OverviewAdapter()
 
@@ -57,6 +58,10 @@ class OverviewActivity : BaseMVPActivity<OverviewView, OverviewPresenter>(),
 
     override fun hideRefreshIndicator() {
         swipeToRefreshLayout.isRefreshing = false
+    }
+
+    override fun openExpandedForecastView(coordinate: Coordinate, unixTime: Long) {
+        ExpandedForecastActivity.start(this, coordinate, unixTime)
     }
 }
 

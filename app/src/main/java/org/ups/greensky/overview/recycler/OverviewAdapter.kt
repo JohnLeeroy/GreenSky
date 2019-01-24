@@ -21,7 +21,9 @@ class OverviewAdapter : BaseAdapter<OverviewItem, OverviewInputEvent, OverviewIt
                 throw IllegalArgumentException("Unknown OverviewAdapter view type")
             }
         }
-        return OverviewItemViewHolder(view)
+        val viewHolder = OverviewItemViewHolder(view)
+        observeViewHolderInput(viewHolder.getInputObservable())
+        return viewHolder
     }
 
     override fun getItemViewType(position: Int): Int {
