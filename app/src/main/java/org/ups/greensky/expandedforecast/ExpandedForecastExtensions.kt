@@ -1,6 +1,7 @@
 package org.ups.greensky.expandedforecast
 
 import org.ups.greensky.core.model.weather.snapshot.DailyWeatherSnapshot
+import org.ups.greensky.weather.getWeatherIcon
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -17,6 +18,7 @@ fun DailyWeatherSnapshot.toExpandedForecastViewModel(): ExpandedForecastViewMode
         String.format("%.0f°", tempRange.temperatureLow),
         hottestAt,
         coldestAt,
-        precipitation
+        precipitation,
+        precipitation.getWeatherIcon()
     )
 }

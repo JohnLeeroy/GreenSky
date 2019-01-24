@@ -8,4 +8,5 @@ data class ExpandedForecastViewModel(val currentTime: String,
                                      val tempLow: String,
                                      val hottestAt: String,
                                      val coldestAt: String,
-                                     val precipitation: Precipitation)
+                                     val precipitation: Precipitation,
+                                     val weatherIconResId: Int)

@@ -29,6 +29,7 @@ class ExpandedForecastActivity : BaseMVPActivity<ExpandedForecastView, ExpandedF
         lowTempLabel.text = viewModel.tempLow
         hottestAtLabel.text = viewModel.hottestAt
         coldestAtLabel.text = viewModel.coldestAt
+        weatherImage.setImageResource(viewModel.weatherIconResId)
     }
     override fun backButtonInputObservable(): Observable<Unit> {
         return toolbar.navigationClicks()
