@@ -17,6 +17,8 @@ class OverviewPresenter(
     private val getCurrentWeeklyForecast: GetCurrentWeeklyForecast
 ) : BasePresenter<OverviewView>() {
 
+    private val sanDiegoCoordinates = Coordinate(32.8242404,-117.389167)
+
     override fun onAttach() {
         refreshData()
         observeRefresh()
@@ -31,18 +33,17 @@ class OverviewPresenter(
                 it.onItemClicked()
                     .ofType(ExpandWeatherForecastEvent::class.java)
                     .subscribe({
-                        view?.openExpandedForecastView(Coordinate(47.608013, -122.335167), it.time)
+                        view?.openExpandedForecastView(sanDiegoCoordinates, it.time)
                     }, Timber::e)
             )
         }
     }
 
     private fun refreshData() {
-        val coordinate = Coordinate(47.608013, -122.335167)
         compositeDisposable?.add(
             Observable.zip(
-                getCurrentWeather(coordinate),
-                getCurrentWeatherWeeklyForecast(coordinate),
+                getCurrentWeather(sanDiegoCoordinates),
+                getCurrentWeatherWeeklyForecast(sanDiegoCoordinates),
                 BiFunction<OverviewItem, List<OverviewItem>, List<OverviewItem>> { one, two ->
                     mergeWeatherResults(one, two)
                 })
