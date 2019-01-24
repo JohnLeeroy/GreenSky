@@ -5,14 +5,23 @@
 
 ### General Info ###
 This module is divided up into 5 modules.
-Applicaton
-Core Models
-Domain
-Api Abstraction
-Dark Sky Api
+
+* Applicaton
+
+* Core Models
+
+* Domain
+
+* Api Abstraction
+
+* Dark Sky Api
 
 Depedencies include:
-RxJava - Reactive & functional support for streams of data
-Timber - Easy to use logger
-Retrofit - Easy to setup api wrapper
-Kodein - Kotlin Dependency Injection
+
+* RxJava - Reactive & functional support for streams of data
+
+* Timber - Easy to use logger
+
+* Retrofit - Easy to setup api wrapper
+
+* Kodein - Kotlin Dependency Injection
