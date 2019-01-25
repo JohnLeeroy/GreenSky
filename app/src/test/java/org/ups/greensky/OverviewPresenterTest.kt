@@ -81,8 +81,6 @@ class OverviewPresenterTest {
     @Test
     fun testOnRefresh() {
         presenter.attach(view)
-//        val expandEventDummy = ExpandWeatherForecastEvent(0)
-//        inputSubject.onNext(expandEventDummy)
         refreshSubject.onNext(Unit)
         testScheduler.defaultScheduler.triggerActions()
         verify(view, atLeastOnce()).addOrUpdateOverviewAdapter(any())
@@ -96,6 +94,4 @@ class OverviewPresenterTest {
         testScheduler.defaultScheduler.triggerActions()
         verify(view, atLeastOnce()).openExpandedForecastView(coordinateDummy, expandEventDummy.time)
     }
-
-
 }
