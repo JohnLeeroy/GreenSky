@@ -1,9 +1,8 @@
 package org.ups.greensky.overview
 
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.BiFunction
-import io.reactivex.schedulers.Schedulers
+import org.ups.greensky.common.rx.GSSchedulers
 import org.ups.greensky.core.model.Coordinate
 import org.ups.greensky.interactor.GetCurrentWeather
 import org.ups.greensky.interactor.GetCurrentWeeklyForecast
@@ -14,7 +13,8 @@ import timber.log.Timber
 
 class OverviewPresenter(
     private val getCurrentWeather: GetCurrentWeather,
-    private val getCurrentWeeklyForecast: GetCurrentWeeklyForecast
+    private val getCurrentWeeklyForecast: GetCurrentWeeklyForecast,
+    private val scheduler : GSSchedulers
 ) : BasePresenter<OverviewView>() {
 
     private val sanDiegoCoordinates = Coordinate(32.8242404,-117.389167)
@@ -47,8 +47,8 @@ class OverviewPresenter(
                 BiFunction<OverviewItem, List<OverviewItem>, List<OverviewItem>> { one, two ->
                     mergeWeatherResults(one, two)
                 })
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(scheduler.networkScheduler())
+                .observeOn(scheduler.uiScheduler())
                 .subscribe({
                     view?.addOrUpdateOverviewAdapter(it)
                     view?.hideRefreshIndicator()
@@ -92,7 +92,7 @@ class OverviewPresenter(
     private fun observeRefresh() {
         view?.let {
             compositeDisposable?.add(it.onRefresh()
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(scheduler.uiScheduler())
                 .subscribe({ refreshData() }, this::handleError))
         }
     }
