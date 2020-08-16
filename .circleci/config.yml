@@ -1,7 +1,7 @@
 version: 2.1
 jobs:
   build:
-    working_directory: ~/code
+    working_directory: ~/GreenSky
     docker:
       - image: circleci/android:api-27
     environment:
